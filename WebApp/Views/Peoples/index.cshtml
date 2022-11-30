@@ -1,0 +1,31 @@
+@using BirthdateManager.Models;
+@model List<People>;
+
+<div class="row">
+  <h1 class="text-center col-12">Pessoas</h1>
+  <div class="coll-10 mt-4">
+    <table class="table table-striped">
+      <thead>
+        <tr class="bg-secondary text-white">
+          <th scope="col">#</th>
+          <th scope="col" span="">Nome completo</th>
+          <th class="text-center" colspan="2">Opções</th>
+        </tr>
+      </thead>
+      <tbody>
+        @{
+          for (int index = 0; index < Model.Count(); index++)
+          {
+            <tr>
+              <th scope="row">@index</th>
+              <td>@Model[index].GetFullName()</td>
+              <td class="text-primary">Detalhes</td>
+              <td class="text-danger">Apagar</td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
