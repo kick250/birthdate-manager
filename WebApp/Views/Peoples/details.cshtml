@@ -1,0 +1,32 @@
+@using BirthdateManager.Models;
+@model People;
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a asp-controller="peoples" asp-action="Index">Amigos</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+      Detalhes
+    </li>
+  </ol>
+</nav>
+
+<h1 class="text-center">Detalhes do amigo</h1>
+<div class="row justify-content-center">
+  <div class="col-6 bg-secondary text-center py-3">
+    <span class="badge bg-info">
+      Faltam @Model.GetDaysForBirthdate() para o aniversário de @Model.GetFirstName()
+    </span>
+    <div class="row my-4 text-white">
+      <div class="col-6">
+        <h5>Nome</h5>
+        <p>@Model.GetFullName()</p>
+      </div>
+      <div class="col-6">
+        <h5>Dada de nascimento</h5>
+        <p>@Model.GetFormattedBirthdate()</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -16,4 +16,10 @@ public class PeoplesController : Controller
 
     return View(peoples);
   }
+
+  public IActionResult Details(int id)
+  {
+    People people = peoplesService.GetById(id);
+    return View(people);
+  }
 }

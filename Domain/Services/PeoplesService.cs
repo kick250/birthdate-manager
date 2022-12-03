@@ -1,6 +1,7 @@
 using System;
-using BirthdateManager.Models;
 using System.Collections.Generic;
+using BirthdateManager.Models;
+using BirthdateManager.Exceptions;
 
 namespace BirthdateManager
 {
@@ -9,9 +10,9 @@ namespace BirthdateManager
     public class PeoplesService
     {
       private static List<People>? SavedPeoples = new List<People> {
-        new People("Breno", "Lobato", new DateTime(2002, 6, 28)),
-        new People("Joao", "Silva", new DateTime(2004, 12, 1)),
-        new People("Luana", "Silveira", new DateTime(2000, 1, 1)),
+        new People(1, "Breno", "Lobato", new DateTime(2002, 6, 28)),
+        new People(2, "Joao", "Silva", new DateTime(2004, 12, 1)),
+        new People(3, "Luana", "Silveira", new DateTime(2000, 1, 1)),
       };
 
       public static PeoplesService Build()
@@ -25,6 +26,19 @@ namespace BirthdateManager
           return new List<People> {};
 
         return SavedPeoples;
+      }
+
+      public People GetById(int id)
+      {
+        if (SavedPeoples == null)
+          throw new PeopleNotFoundException();
+
+        People? foundPeople = SavedPeoples.Find(people => people.GetId() == id);
+
+        if (foundPeople == null)
+          throw new PeopleNotFoundException();
+
+        return foundPeople;
       }
 
       public void Save(People people)

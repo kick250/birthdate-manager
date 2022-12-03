@@ -1,15 +1,23 @@
 @using BirthdateManager.Models;
 @model List<People>;
 
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active">
+      Amigos
+    </li>
+  </ol>
+</nav>
+
 <div class="row">
-  <h1 class="text-center col-12">Pessoas</h1>
-  <div class="coll-10 mt-4">
+  <h1 class="text-center col-12">Gerenciar amigos</h1>
+  <div class="coll-9 mt-4">
     <table class="table table-striped">
       <thead>
         <tr class="bg-secondary text-white">
           <th scope="col">#</th>
           <th scope="col" span="">Nome completo</th>
-          <th class="text-center" colspan="2">Opções</th>
+          <th colspan="3">Opções</th>
         </tr>
       </thead>
       <tbody>
@@ -19,8 +27,17 @@
             <tr>
               <th scope="row">@index</th>
               <td>@Model[index].GetFullName()</td>
-              <td class="text-primary">Detalhes</td>
-              <td class="text-danger">Apagar</td>
+              <td class="text-primary">
+                <a asp-controller="peoples" asp-action="details" asp-route-id="@Model[index].GetId()">Detalhes</a>
+              </td>
+              <td class="text-primary">
+                <a asp-controller="peoples" asp-action="edit" asp-route-id="@Model[index].GetId()">
+                  Editar
+                </a>
+              </td>
+              <td class="text-danger">
+                Apagar
+              </td>
             </tr>
           }
         }

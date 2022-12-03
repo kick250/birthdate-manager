@@ -6,15 +6,27 @@ namespace BirthdateManager
   {
     public class People
     {
+      private int Id { get; set; }
       private string FirstName { get; set; }
       private string LastName { get; set; }
       private DateTime Birthdate { get; set; }
 
-      public People(string firstName, string lastName, DateTime birthdate)
+      public People(int id, string firstName, string lastName, DateTime birthdate)
       {
+        Id = id;
         FirstName = firstName;
         LastName = lastName;
         Birthdate = birthdate;
+      }
+
+      public int GetId()
+      {
+        return Id;
+      }
+
+      public string GetFirstName()
+      {
+        return FirstName;
       }
 
       public string GetFullName()
