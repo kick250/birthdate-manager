@@ -1,0 +1,33 @@
+@using Requests;
+@model PeopleRequest;
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a asp-controller="peoples" asp-action="Index">Amigos</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+      Editar
+    </li>
+  </ol>
+</nav>
+
+<h1 class="text-center">Editar amigo</h1>
+<div class="row justify-content-center">
+  <form asp-controller="peoples" asp-action="update" class="col-6 text-center py-3">
+    <input type="hidden" name="Id" value="@Model.Id">
+    <div class="form-group">
+      <label for="first-name">Nome</label>
+      <input class="form-control text-center" value="@Model.FirstName" id="first-name" name="FirstName" type="text" placeholder="ex: Lucas">
+    </div>
+    <div class="form-group">
+      <label for="last-name">Sobrenome</label>
+      <input class="form-control text-center" value="@Model.LastName" id="last-name" name="LastName" type="text" placeholder="ex: Ribeiro da Silva">
+    </div>
+    <div class="form-group">
+      <label for="birthdate">Data de nascimento</label>
+      <input class="form-control text-center" value="@Model.GetFormattedBirthdate()" id="birthdate" name="Birthdate" type="date">
+    </div>
+    <button type="submit" class="btn btn-primary mt-2 w-100">Salvar</button>
+  </form>
+</div>

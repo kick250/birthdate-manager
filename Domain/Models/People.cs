@@ -29,16 +29,24 @@ namespace BirthdateManager
         return FirstName;
       }
 
+      public string GetLastName()
+      {
+        return LastName;
+      }
+
       public string GetFullName()
       {
         return $"{FirstName} {LastName}";
       }
 
-      public string GetFormattedBirthdate()
+      public DateTime GetBirthdate()
       {
-        return $"{Birthdate.Day}/{Birthdate.Month}/{Birthdate.Year}";
+        return Birthdate;
       }
-
+      public string GetFormattedBirthdate(char separateChar = '/')
+      {
+        return $"{Birthdate.Day}{separateChar}{Birthdate.Month}{separateChar}{Birthdate.Year}";
+      }
       public int GetDaysForBirthdate()
       {
         int daysForBirthdate = (GetNextBirthdate() - DateTime.Now).Days;

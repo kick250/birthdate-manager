@@ -41,6 +41,28 @@ namespace BirthdateManager
         return foundPeople;
       }
 
+      public void Update(People people)
+      {
+        if (SavedPeoples == null)
+        {
+          SavedPeoples = new List<People> { people };
+          return;
+        }
+
+        int index = -1;
+
+        for (int i = 0; i < SavedPeoples.Count(); i++)
+        {
+          if (SavedPeoples[i].GetId() == people.GetId())
+          {
+            index = i;
+            break;
+          }
+        }
+
+        SavedPeoples[index] = people;
+      }
+
       public void Save(People people)
       {
         if (SavedPeoples == null)
