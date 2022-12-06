@@ -17,7 +17,7 @@ namespace Requests
     public string? LastName { get; set; }
 
     [Required(ErrorMessage = "É necessário preencher a data de nascimento.")]
-    public DateTime Birthdate { get; set; }
+    public DateTime? Birthdate { get; set; }
 
     public static PeopleRequest BuildFromPeople(People people)
     {
@@ -47,22 +47,24 @@ namespace Requests
       if (Birthdate == null)
         return "";
 
-      string day = $"{Birthdate.Day}".PadLeft(2, '0');
-      string month = $"{Birthdate.Month}".PadLeft(2, '0');
+      DateTime birthdate = (DateTime) Birthdate;
+      string day = $"{birthdate.Day}".PadLeft(2, '0');
+      string month = $"{birthdate.Month}".PadLeft(2, '0');
+      string year = $"{birthdate.Year}".PadLeft(4, '0');
 
-      return $"{Birthdate.Year}-{month}-{day}";
+      return $"{year}-{month}-{day}";
     }
 
     public People GetDomain()
     {
-      if (Id == null || FirstName == null || LastName == null)
+      if (Id == null || FirstName == null || LastName == null || Birthdate == null)
         throw new PeopleDataNotPresentException();
 
       return new People(
         (int) Id,
         FirstName,
         LastName,
-        Birthdate
+        (DateTime) Birthdate
       );
     }
   }

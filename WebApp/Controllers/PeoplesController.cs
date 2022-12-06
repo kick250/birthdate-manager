@@ -35,7 +35,7 @@ public class PeoplesController : Controller
   public IActionResult Update(PeopleRequest peopleRequest)
   {
     if (!ModelState.IsValid)
-      return RedirectToAction("Edit", peopleRequest.Id);
+      return View("edit", peopleRequest);
 
     People people = peopleRequest.GetDomain();
 
