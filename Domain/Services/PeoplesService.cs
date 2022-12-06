@@ -68,13 +68,23 @@ namespace BirthdateManager
         if (SavedPeoples == null)
         {
           SavedPeoples = new List<People> {};
-          return;
         }
 
         if (people.IsIdEmpty())
           people.SetId();
 
         SavedPeoples.Add(people);
+      }
+
+      public void DeleteById(int id)
+      {
+        if (SavedPeoples == null)
+        {
+          SavedPeoples = new List<People> {};
+          return;
+        }
+
+        SavedPeoples.RemoveAll(people => people.GetId() == id);
       }
 
       public List<People> GetByName(string searchedName)

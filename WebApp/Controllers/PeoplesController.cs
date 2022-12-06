@@ -56,4 +56,12 @@ public class PeoplesController : Controller
     peoplesService.Create(peopleRequest.GetDomain());
     return RedirectToAction("index");
   }
+
+  [HttpPost]
+  public  IActionResult Delete(int id)
+  {
+    peoplesService.DeleteById(id);
+
+    return RedirectToAction("index");
+  }
 }

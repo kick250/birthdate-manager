@@ -36,7 +36,11 @@
                 </a>
               </td>
               <td class="text-danger">
-                Apagar
+                <form asp-controller="peoples" asp-action="delete" asp-route-id="@Model[index].GetId()"
+                  onclick="return confirm('Tem certeza que deseja apagar?');"
+                >
+                  <button type="submit" class="btn btn-danger">Apagar</button>
+                </form>
               </td>
             </tr>
           }
