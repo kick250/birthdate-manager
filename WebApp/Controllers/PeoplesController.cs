@@ -43,4 +43,25 @@ public class PeoplesController : Controller
 
     return RedirectToAction("index");
   }
+
+  public IActionResult New()
+  {
+    PeopleRequest peopleRequest = new PeopleRequest();
+    return View(peopleRequest);
+  }
+
+  public IActionResult Create(PeopleRequest peopleRequest)
+  {
+    if (!ModelState.IsValid)
+      return View("new", peopleRequest);
+
+    if (peopleRequest.FirstName == null || peopleRequest.LastName == null || peopleRequest.Birthdate == null)
+    {
+      ViewBag.Message = "Ocorreu um erro inesperado.";
+      return View("new", peopleRequest);
+    }
+
+    peoplesService.Create(peopleRequest.GetDomain());
+    return RedirectToAction("index");
+  }
 }

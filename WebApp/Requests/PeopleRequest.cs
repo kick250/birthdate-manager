@@ -7,7 +7,6 @@ namespace Requests
 {
   public class PeopleRequest
   {
-    [Required(ErrorMessage = "O id deve ser enviado")]
     public int? Id { get; set; }
 
     [Required(ErrorMessage = "O nome é obrigatório.")]
@@ -34,7 +33,7 @@ namespace Requests
 
     }
 
-    public PeopleRequest(int id, string firstName, string lastName, DateTime birthdate)
+    public PeopleRequest(int? id, string firstName, string lastName, DateTime birthdate)
     {
       Id = id;
       FirstName = firstName;
@@ -57,11 +56,11 @@ namespace Requests
 
     public People GetDomain()
     {
-      if (Id == null || FirstName == null || LastName == null || Birthdate == null)
+      if (FirstName == null || LastName == null || Birthdate == null)
         throw new PeopleDataNotPresentException();
 
       return new People(
-        (int) Id,
+        Id,
         FirstName,
         LastName,
         (DateTime) Birthdate

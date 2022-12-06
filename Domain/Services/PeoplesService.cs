@@ -63,13 +63,16 @@ namespace BirthdateManager
         SavedPeoples[index] = people;
       }
 
-      public void Save(People people)
+      public void Create(People people)
       {
         if (SavedPeoples == null)
         {
-          SavedPeoples = new List<People> { people };
+          SavedPeoples = new List<People> {};
           return;
         }
+
+        if (people.IsIdEmpty())
+          people.SetId();
 
         SavedPeoples.Add(people);
       }

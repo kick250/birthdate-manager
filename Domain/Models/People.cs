@@ -6,12 +6,12 @@ namespace BirthdateManager
   {
     public class People
     {
-      private int Id { get; set; }
+      private int? Id { get; set; }
       private string FirstName { get; set; }
       private string LastName { get; set; }
       private DateTime Birthdate { get; set; }
 
-      public People(int id, string firstName, string lastName, DateTime birthdate)
+      public People(int? id, string firstName, string lastName, DateTime birthdate)
       {
         Id = id;
         FirstName = firstName;
@@ -19,9 +19,19 @@ namespace BirthdateManager
         Birthdate = birthdate;
       }
 
-      public int GetId()
+      public int? GetId()
       {
         return Id;
+      }
+
+      public void SetId()
+      {
+        Id = DateTime.Now.Second * 3 * DateTime.Now.Millisecond;
+      }
+
+      public bool IsIdEmpty()
+      {
+        return Id == null;
       }
 
       public string GetFirstName()
