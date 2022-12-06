@@ -37,9 +37,7 @@ public class PeoplesController : Controller
     if (!ModelState.IsValid)
       return View("edit", peopleRequest);
 
-    People people = peopleRequest.GetDomain();
-
-    peoplesService.Update(people);
+    peoplesService.Update(peopleRequest.GetDomain());
 
     return RedirectToAction("index");
   }
@@ -54,12 +52,6 @@ public class PeoplesController : Controller
   {
     if (!ModelState.IsValid)
       return View("new", peopleRequest);
-
-    if (peopleRequest.FirstName == null || peopleRequest.LastName == null || peopleRequest.Birthdate == null)
-    {
-      ViewBag.Message = "Ocorreu um erro inesperado.";
-      return View("new", peopleRequest);
-    }
 
     peoplesService.Create(peopleRequest.GetDomain());
     return RedirectToAction("index");
