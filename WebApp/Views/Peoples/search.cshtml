@@ -3,14 +3,17 @@
 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a asp-controller="peoples" asp-action="Index">Amigos</a>
+    </li>
     <li class="breadcrumb-item active">
-      Amigos
+      Buscar
     </li>
   </ol>
 </nav>
 
 <div class="row">
-  <h1 class="text-center col-12">Gerenciar amigos</h1>
+  <h1 class="text-center col-12">Busca de amigos</h1>
   <form asp-controller="peoples" asp-action="search" class="col-12">
     <div class="d-flex justify-content-center">
       <div class="w-50 d-flex">
@@ -19,7 +22,8 @@
       </div>
     </div>
   </form>
-  <div class="coll-9 mt-4">
+  <span class="text-info text-center mt-4">Resultado da busca por: @ViewBag.query</span>
+  <div class="coll-9 mt-2">
     <table class="table table-striped">
       <thead>
         <tr class="bg-secondary text-white">

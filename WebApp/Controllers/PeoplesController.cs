@@ -58,10 +58,19 @@ public class PeoplesController : Controller
   }
 
   [HttpPost]
-  public  IActionResult Delete(int id)
+  public IActionResult Delete(int id)
   {
     peoplesService.DeleteById(id);
 
     return RedirectToAction("index");
+  }
+
+  public IActionResult Search(string query)
+  {
+    ViewBag.query = query;
+
+    List<People> peoples = peoplesService.GetByName(query);
+
+    return View(peoples);
   }
 }
