@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BirthdateManager.Models;
 using BirthdateManager.Exceptions;
+using BirthdateManager.Repositories;
 
 namespace BirthdateManager
 {
@@ -15,17 +16,23 @@ namespace BirthdateManager
         new People(3, "Luana", "Silveira", new DateTime(2000, 1, 1)),
       };
 
+      PeoplesRepository PeoplesRepository { get; set; }
+
       public static PeoplesService Build()
       {
-        return new PeoplesService();
+        return new PeoplesService(
+          PeoplesRepository.Build()
+        );
+      }
+
+      public PeoplesService(PeoplesRepository peoplesRepository)
+      {
+        PeoplesRepository = peoplesRepository;
       }
 
       public List<People> GetAll()
       {
-        if (SavedPeoples == null)
-          return new List<People> {};
-
-        return SavedPeoples;
+        return PeoplesRepository.GetAll();
       }
 
       public People GetById(int id)

@@ -33,7 +33,7 @@ namespace Requests
 
     }
 
-    public PeopleRequest(int? id, string firstName, string lastName, DateTime birthdate)
+    public PeopleRequest(int? id, string firstName, string lastName, DateTime? birthdate)
     {
       Id = id;
       FirstName = firstName;

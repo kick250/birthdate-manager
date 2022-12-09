@@ -7,11 +7,11 @@ namespace BirthdateManager
     public class People
     {
       private int? Id { get; set; }
-      private string FirstName { get; set; }
-      private string LastName { get; set; }
-      private DateTime Birthdate { get; set; }
+      private string? FirstName { get; set; }
+      private string? LastName { get; set; }
+      private DateTime? Birthdate { get; set; }
 
-      public People(int? id, string firstName, string lastName, DateTime birthdate)
+      public People(int? id, string? firstName, string? lastName, DateTime? birthdate)
       {
         Id = id;
         FirstName = firstName;
@@ -36,11 +36,17 @@ namespace BirthdateManager
 
       public string GetFirstName()
       {
+        if (FirstName == null)
+          return "";
+
         return FirstName;
       }
 
       public string GetLastName()
       {
+        if (LastName == null)
+          return "";
+
         return LastName;
       }
 
@@ -49,27 +55,44 @@ namespace BirthdateManager
         return $"{FirstName} {LastName}";
       }
 
-      public DateTime GetBirthdate()
+      public DateTime? GetBirthdate()
       {
         return Birthdate;
       }
       public string GetFormattedBirthdate(char separateChar = '/')
       {
-        return $"{Birthdate.Day}{separateChar}{Birthdate.Month}{separateChar}{Birthdate.Year}";
+        if (Birthdate == null)
+          return "";
+
+        DateTime birthdate = (DateTime) Birthdate;
+
+        return $"{birthdate.Day}{separateChar}{birthdate.Month}{separateChar}{birthdate.Year}";
       }
       public int GetDaysForBirthdate()
       {
-        int daysForBirthdate = (GetNextBirthdate() - DateTime.Now).Days;
+        DateTime? nextBirthdateValue = GetNextBirthdate();
+
+        if (nextBirthdateValue == null)
+          return -1;
+
+        DateTime nextBirthdate = (DateTime) nextBirthdateValue;
+
+        int daysForBirthdate = (nextBirthdate - DateTime.Now).Days;
         return daysForBirthdate;
       }
 
-      public DateTime GetNextBirthdate()
+      public DateTime? GetNextBirthdate()
       {
+        if (Birthdate == null)
+          return null;
+
+        DateTime birthdate = (DateTime) Birthdate;
+
         int currentYear = DateTime.Now.Year;
-        DateTime nextBirthdate = new DateTime(currentYear, Birthdate.Month, Birthdate.Day);
+        DateTime nextBirthdate = new DateTime(currentYear, birthdate.Month, birthdate.Day);
 
         if (DateTime.Now > nextBirthdate)
-          return new DateTime(currentYear + 1, Birthdate.Month, Birthdate.Day);
+          return new DateTime(currentYear + 1, birthdate.Month, birthdate.Day);
 
         return nextBirthdate;
       }
