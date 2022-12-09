@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApp.Models;
 using BirthdateManager.Services;
 using BirthdateManager.Models;
+using BirthdateManager.Exceptions;
 using Requests;
 
 namespace WebApp.Controllers;
@@ -26,9 +27,13 @@ public class PeoplesController : Controller
 
   public IActionResult Edit(int id)
   {
-    People people = peoplesService.GetById(id);
-    PeopleRequest request = PeopleRequest.BuildFromPeople(people);
-    return View(request);
+    try {
+      People people = peoplesService.GetById(id);
+      PeopleRequest request = PeopleRequest.BuildFromPeople(people);
+      return View(request);
+    } catch (PeopleNotFoundException) {
+      return RedirectToAction("index");
+    }
   }
 
   [HttpPost]

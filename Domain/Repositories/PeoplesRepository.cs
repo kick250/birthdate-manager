@@ -40,6 +40,13 @@ namespace BirthdateManager
 
         return peoples;
       }
+
+      public People GetById(int id)
+      {
+        var peopleData = Database.GetById(id);
+
+        return Factory.BuildFromDictionary(peopleData);
+      }
     }
   }
 }

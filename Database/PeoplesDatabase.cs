@@ -1,6 +1,7 @@
 using System;
 using System.Data.SqlClient;
-
+using System.Data;
+using Database.Exceptions;
 
 namespace Database
 {
@@ -33,6 +34,29 @@ namespace Database
       Connection.Close();
 
       return peoplesData;
+    }
+
+    public Dictionary<string, string?> GetById(int id)
+    {
+      Connection.Open();
+
+      var command = CreateCommand("select * from peoples where id = @ParamId;");
+
+      var param = new SqlParameter("@ParamId", SqlDbType.Int);
+      param.Value = id;
+
+      command.Parameters.Add(param);
+
+      var data = command.ExecuteReader();
+
+      if (!data.Read())
+        throw new RecordNotFound();
+
+      var peopleData = ParsePeople(data);
+
+      Connection.Close();
+
+      return peopleData;
     }
 
     private SqlCommand CreateCommand(string query)

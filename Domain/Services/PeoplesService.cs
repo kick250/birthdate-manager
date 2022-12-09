@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BirthdateManager.Models;
 using BirthdateManager.Exceptions;
 using BirthdateManager.Repositories;
+using Database.Exceptions;
 
 namespace BirthdateManager
 {
@@ -37,15 +38,13 @@ namespace BirthdateManager
 
       public People GetById(int id)
       {
-        if (SavedPeoples == null)
+        try {
+          People foundPeople = PeoplesRepository.GetById(id);
+
+          return foundPeople;
+        } catch (RecordNotFound) {
           throw new PeopleNotFoundException();
-
-        People? foundPeople = SavedPeoples.Find(people => people.GetId() == id);
-
-        if (foundPeople == null)
-          throw new PeopleNotFoundException();
-
-        return foundPeople;
+        }
       }
 
       public void Update(People people)
