@@ -47,6 +47,11 @@ namespace BirthdateManager
 
         return Factory.BuildFromDictionary(peopleData);
       }
+
+      public void Update(People people)
+      {
+        Database.Update(people.ToDictionary());
+      }
     }
   }
 }

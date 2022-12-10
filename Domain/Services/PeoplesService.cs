@@ -17,7 +17,7 @@ namespace BirthdateManager
         new People(3, "Luana", "Silveira", new DateTime(2000, 1, 1)),
       };
 
-      PeoplesRepository PeoplesRepository { get; set; }
+      PeoplesRepository Repository { get; set; }
 
       public static PeoplesService Build()
       {
@@ -26,20 +26,20 @@ namespace BirthdateManager
         );
       }
 
-      public PeoplesService(PeoplesRepository peoplesRepository)
+      public PeoplesService(PeoplesRepository repository)
       {
-        PeoplesRepository = peoplesRepository;
+        Repository = repository;
       }
 
       public List<People> GetAll()
       {
-        return PeoplesRepository.GetAll();
+        return Repository.GetAll();
       }
 
       public People GetById(int id)
       {
         try {
-          People foundPeople = PeoplesRepository.GetById(id);
+          People foundPeople = Repository.GetById(id);
 
           return foundPeople;
         } catch (RecordNotFound) {
@@ -49,24 +49,7 @@ namespace BirthdateManager
 
       public void Update(People people)
       {
-        if (SavedPeoples == null)
-        {
-          SavedPeoples = new List<People> { people };
-          return;
-        }
-
-        int index = -1;
-
-        for (int i = 0; i < SavedPeoples.Count(); i++)
-        {
-          if (SavedPeoples[i].GetId() == people.GetId())
-          {
-            index = i;
-            break;
-          }
-        }
-
-        SavedPeoples[index] = people;
+        Repository.Update(people);
       }
 
       public void Create(People people)

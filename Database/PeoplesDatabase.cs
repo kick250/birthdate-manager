@@ -59,6 +59,41 @@ namespace Database
       return peopleData;
     }
 
+    public void Update(Dictionary<string, string?> peopleData)
+    {
+      Connection.Open();
+
+      var command = CreateCommand(@"
+        update peoples
+          set
+            first_name = @ParamFirstName,
+            last_name = @ParamLastName,
+            birthdate = @ParamBirthdate
+          where id = @ParamId;
+      ");
+
+      var paramId = new SqlParameter("@ParamId", SqlDbType.Int);
+      paramId.Value = peopleData["Id"];
+
+      var paramFirstName = new SqlParameter("@ParamFirstName", SqlDbType.VarChar);
+      paramFirstName.Value = peopleData["FirstName"];
+
+      var paramLastName = new SqlParameter("@ParamLastName", SqlDbType.VarChar);
+      paramLastName.Value = peopleData["LastName"];
+
+      var paramBirthdate = new SqlParameter("@ParamBirthdate", SqlDbType.Date);
+      paramBirthdate.Value = peopleData["Birthdate"];
+
+      command.Parameters.Add(paramId);
+      command.Parameters.Add(paramFirstName);
+      command.Parameters.Add(paramLastName);
+      command.Parameters.Add(paramBirthdate);
+
+      var data = command.ExecuteNonQuery();
+
+      Connection.Close();
+    }
+
     private SqlCommand CreateCommand(string query)
     {
       SqlCommand command = Connection.CreateCommand();

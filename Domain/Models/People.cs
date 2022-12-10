@@ -65,8 +65,11 @@ namespace BirthdateManager
           return "";
 
         DateTime birthdate = (DateTime) Birthdate;
+        string day = $"{birthdate.Day}".PadLeft(2, '0');
+        string month = $"{birthdate.Month}".PadLeft(2, '0');
+        string year = $"{birthdate.Year}".PadLeft(4, '0');
 
-        return $"{birthdate.Day}{separateChar}{birthdate.Month}{separateChar}{birthdate.Year}";
+        return $"{day}{separateChar}{month}{separateChar}{year}";
       }
       public int GetDaysForBirthdate()
       {
@@ -95,6 +98,17 @@ namespace BirthdateManager
           return new DateTime(currentYear + 1, birthdate.Month, birthdate.Day);
 
         return nextBirthdate;
+      }
+      public Dictionary<string, string?> ToDictionary()
+      {
+        var dict = new Dictionary<string, string?>() {};
+
+        dict["Id"] = $"{GetId()}";
+        dict["FirstName"] = GetFirstName();
+        dict["LastName"] = GetLastName();
+        dict["Birthdate"] = Birthdate.ToString();
+
+        return dict;
       }
     }
   }
