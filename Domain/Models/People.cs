@@ -49,6 +49,18 @@ namespace BirthdateManager
       {
         return Birthdate;
       }
+
+      public bool IsBirthdayToday()
+      {
+        if (Birthdate == null)
+          return false;
+
+        DateTime birthdate = (DateTime) Birthdate;
+
+        DateTime today = DateTime.Now;
+
+        return birthdate.Day == today.Day && birthdate.Month == today.Month;
+      }
       public string GetFormattedBirthdate(char separateChar = '/')
       {
         if (Birthdate == null)
@@ -81,10 +93,12 @@ namespace BirthdateManager
 
         DateTime birthdate = (DateTime) Birthdate;
 
-        int currentYear = DateTime.Now.Year;
+        DateTime today = DateTime.Today;
+
+        int currentYear = today.Year;
         DateTime nextBirthdate = new DateTime(currentYear, birthdate.Month, birthdate.Day);
 
-        if (DateTime.Now > nextBirthdate)
+        if (today > nextBirthdate)
           return new DateTime(currentYear + 1, birthdate.Month, birthdate.Day);
 
         return nextBirthdate;

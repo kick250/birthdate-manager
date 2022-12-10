@@ -14,7 +14,7 @@ public class PeoplesController : Controller
 
   public IActionResult Index()
   {
-    List<People> peoples = peoplesService.GetAll();
+    List<People> peoples = peoplesService.GetAllOrderedByBirthdate();
 
     return View(peoples);
   }

@@ -30,6 +30,11 @@ namespace BirthdateManager
         return Repository.GetAll();
       }
 
+      public List<People> GetAllOrderedByBirthdate()
+      {
+        return Repository.GetAllOrderedByBirthdate();
+      }
+
       public People GetById(int id)
       {
         try {

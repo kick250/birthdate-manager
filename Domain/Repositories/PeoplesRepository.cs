@@ -41,6 +41,15 @@ namespace BirthdateManager
         return peoples;
       }
 
+      public List<People> GetAllOrderedByBirthdate()
+      {
+        List<People> peoples = GetAll()
+          .OrderBy(people => people.GetDaysForBirthdate())
+          .ToList();
+
+        return peoples;
+      }
+
       public People GetById(int id)
       {
         var peopleData = Database.GetById(id);

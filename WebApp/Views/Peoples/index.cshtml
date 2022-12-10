@@ -25,6 +25,7 @@
         <tr class="bg-secondary text-white">
           <th scope="col">#</th>
           <th scope="col" span="">Nome completo</th>
+          <th scope="col" span="">Data de nascimento</th>
           <th colspan="3">Opções</th>
         </tr>
       </thead>
@@ -35,6 +36,7 @@
             <tr>
               <th scope="row">@index</th>
               <td>@Model[index].GetFullName()</td>
+              <td>@Model[index].GetFormattedBirthdate()</td>
               <td class="text-primary">
                 <a asp-controller="peoples" asp-action="details" asp-route-id="@Model[index].GetId()">Detalhes</a>
               </td>
@@ -52,6 +54,47 @@
               </td>
             </tr>
           }
+        }
+      </tbody>
+    </table>
+  </div>
+  <h3 class="text-center">Aniversários de hoje</h3>
+  <div class="coll-9 mt-4">
+    <table class="table table-striped">
+      <thead>
+        <tr class="bg-secondary text-white">
+          <th scope="col">#</th>
+          <th scope="col" span="">Nome completo</th>
+          <th scope="col" span="">Data de nascimento</th>
+          <th colspan="3">Opções</th>
+        </tr>
+      </thead>
+      <tbody>
+        @{
+          for (int index = 0; index < Model.Count(); index++)
+           if (Model[index].IsBirthdayToday())
+            {
+              <tr>
+                <th scope="row">@index</th>
+                <td>@Model[index].GetFullName()</td>
+                <td>@Model[index].GetFormattedBirthdate()</td>
+                <td class="text-primary">
+                  <a asp-controller="peoples" asp-action="details" asp-route-id="@Model[index].GetId()">Detalhes</a>
+                </td>
+                <td class="text-primary">
+                  <a asp-controller="peoples" asp-action="edit" asp-route-id="@Model[index].GetId()">
+                    Editar
+                  </a>
+                </td>
+                <td class="text-danger">
+                  <form asp-controller="peoples" asp-action="delete" asp-route-id="@Model[index].GetId()"
+                    onclick="return confirm('Tem certeza que deseja apagar?');"
+                  >
+                    <button type="submit" class="btn btn-danger">Apagar</button>
+                  </form>
+                </td>
+              </tr>
+            }
         }
       </tbody>
     </table>
