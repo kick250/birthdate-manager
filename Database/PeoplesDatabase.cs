@@ -81,7 +81,7 @@ namespace Database
       command.Parameters.Add(paramLastName);
       command.Parameters.Add(paramBirthdate);
 
-      var data = command.ExecuteNonQuery();
+      command.ExecuteNonQuery();
 
       Connection.Close();
     }
@@ -116,7 +116,26 @@ namespace Database
       command.Parameters.Add(paramLastName);
       command.Parameters.Add(paramBirthdate);
 
-      var data = command.ExecuteNonQuery();
+      command.ExecuteNonQuery();
+
+      Connection.Close();
+    }
+
+    public void DeleteById(int id)
+    {
+      Connection.Open();
+
+      var command = CreateCommand(@"
+        delete from peoples
+          where id = @ParamId;
+      ");
+
+      var param = new SqlParameter("@ParamId", SqlDbType.Int);
+      param.Value = id;
+
+      command.Parameters.Add(param);
+
+      command.ExecuteNonQuery();
 
       Connection.Close();
     }

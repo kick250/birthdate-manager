@@ -57,6 +57,11 @@ namespace BirthdateManager
       {
         Database.Update(people.ToDictionary());
       }
+
+      public void DeleteById(int id)
+      {
+        Database.DeleteById(id);
+      }
     }
   }
 }

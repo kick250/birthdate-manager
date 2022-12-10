@@ -11,12 +11,6 @@ namespace BirthdateManager
   {
     public class PeoplesService
     {
-      private static List<People>? SavedPeoples = new List<People> {
-        new People(1, "Breno", "Lobato", new DateTime(2002, 6, 28)),
-        new People(2, "Joao", "Silva", new DateTime(2004, 12, 1)),
-        new People(3, "Luana", "Silveira", new DateTime(2000, 1, 1)),
-      };
-
       PeoplesRepository Repository { get; set; }
 
       public static PeoplesService Build()
@@ -59,26 +53,12 @@ namespace BirthdateManager
 
       public void DeleteById(int id)
       {
-        if (SavedPeoples == null)
-        {
-          SavedPeoples = new List<People> {};
-          return;
-        }
-
-        SavedPeoples.RemoveAll(people => people.GetId() == id);
+        Repository.DeleteById(id);
       }
 
       public List<People> GetByName(string searchedName)
       {
-        List<People> peoples = new List<People> {};
-
-        foreach (People people in GetAll())
-        {
-          string poepleName = people.GetFullName().ToLower();
-          if (poepleName.Contains(searchedName.ToLower()))
-            peoples.Add(people);
-        }
-        return peoples;
+        return Repository.GetByName(searchedName);
       }
     }
   }
