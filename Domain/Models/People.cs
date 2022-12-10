@@ -24,16 +24,6 @@ namespace BirthdateManager
         return Id;
       }
 
-      public void SetId()
-      {
-        Id = DateTime.Now.Second * 3 * DateTime.Now.Millisecond;
-      }
-
-      public bool IsIdEmpty()
-      {
-        return Id == null;
-      }
-
       public string GetFirstName()
       {
         if (FirstName == null)

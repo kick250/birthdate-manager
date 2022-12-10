@@ -48,6 +48,11 @@ namespace BirthdateManager
         return Factory.BuildFromDictionary(peopleData);
       }
 
+      public void Create(People people)
+      {
+        Database.Create(people.ToDictionary());
+      }
+
       public void Update(People people)
       {
         Database.Update(people.ToDictionary());

@@ -54,15 +54,7 @@ namespace BirthdateManager
 
       public void Create(People people)
       {
-        if (SavedPeoples == null)
-        {
-          SavedPeoples = new List<People> {};
-        }
-
-        if (people.IsIdEmpty())
-          people.SetId();
-
-        SavedPeoples.Add(people);
+        Repository.Create(people);
       }
 
       public void DeleteById(int id)
