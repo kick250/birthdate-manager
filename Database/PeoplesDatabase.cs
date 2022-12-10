@@ -36,6 +36,29 @@ namespace Database
       return peoplesData;
     }
 
+    public List<Dictionary<string, string?>> GetByName(string name)
+    {
+      Connection.Open();
+
+      var command = CreateCommand(@"
+        select * from peoples
+          where UPPER(concat(first_name, ' ', last_name)) like UPPER(@ParamName);
+      ");
+
+      var param = new SqlParameter("@ParamName", SqlDbType.VarChar);
+      param.Value = $"%{name}%";
+
+      command.Parameters.Add(param);
+
+      var data = command.ExecuteReader();
+
+      var peoplesData = ParsePeopleColection(data);
+
+      Connection.Close();
+
+      return peoplesData;
+    }
+
     public Dictionary<string, string?> GetById(int id)
     {
       Connection.Open();
