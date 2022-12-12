@@ -44,7 +44,7 @@ namespace BirthdateManager
       public List<People> GetAllOrderedByBirthdate()
       {
         List<People> peoples = GetAll()
-          .OrderBy(people => people.GetDaysForBirthdate())
+          .OrderBy(people => people.GetNextBirthdate())
           .ToList();
 
         return peoples;
